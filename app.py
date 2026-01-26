@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 from pydantic import BaseModel
 from Text_Summarizer.pipeline.prediction import PredictionPipeline
 
@@ -21,3 +22,6 @@ async def predict_route(data: TextInput):
     obj = PredictionPipeline()
     summary = obj.predict(data.text)
     return {"summary": summary}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8080)
